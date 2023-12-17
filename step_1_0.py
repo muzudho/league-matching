@@ -39,6 +39,11 @@ if __name__ == "__main__":
             if y == x:
                 board[y*edge_size+x] = "\\"
 
+    # 第１ラウンド目をプロット
+    for y in range(0,edge_size):
+        x = get_opponent(y, round, edge_size)
+        board[y*edge_size+x] = "*"
+
     # 表示
     for y in range(0,edge_size):
         for x in range(0,edge_size):
