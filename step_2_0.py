@@ -11,7 +11,15 @@ def create_empty_board(edge_size):
     edge_size : int
         一辺の長さ
     """
-    return [" "] * (edge_size * edge_size)
+    return ["."] * (edge_size * edge_size)
+
+
+def scan_board(board, edge_size, on_cell, on_line_end):
+    """盤を走査します"""
+    for y in range(0,edge_size):
+        for x in range(0,edge_size):
+            on_cell(x, y, board[y*edge_size+x])
+        on_line_end()
 
 
 def print_board(edge_size, board):
@@ -24,12 +32,22 @@ def print_board(edge_size, board):
     board : list
         盤
     """
-    for y in range(0,edge_size):
-        for x in range(0,edge_size):
-            print(board[y*edge_size+x], end="")
-        print("")
-    pass
+    scan_board(
+        board,
+        edge_size,
+        lambda x, y, color: print(color, end=""),
+        lambda: print(""))
 
+
+def overwrite_4_boards(src, src_edge_size, dst, dst_edge_size):
+    """srcテーブルを４つ、dstテーブルへ上書きコピーしたい"""
+
+    # TODO １回目のコピー
+    # TODO ２回目のコピー
+    # TODO ３回目のコピー
+    # TODO ４回目のコピー
+
+    pass
 
 if __name__ == "__main__":
 
@@ -43,11 +61,14 @@ if __name__ == "__main__":
     edge_size = 1
     board = create_empty_board(edge_size)
 
-    # 対角線をプロット
-    for y in range(0,edge_size):
-        for x in range(0,edge_size):
-            if y == x:
-                board[y*edge_size+x] = "\\"
+    # 基準点に 0 を入れる
+    board[0] = 0
+
+    ## 対角線をプロット
+    #for y in range(0,edge_size):
+    #    for x in range(0,edge_size):
+    #        if y == x:
+    #            board[y*edge_size+x] = "\\"
 
     # 表示
     print_board(edge_size, board)
@@ -59,11 +80,13 @@ if __name__ == "__main__":
     edge_size = 2
     board2 = create_empty_board(edge_size)
 
-    # 対角線をプロット
-    for y in range(0,edge_size):
-        for x in range(0,edge_size):
-            if y == x:
-                board2[y*edge_size+x] = "\\"
+    # １つ前の盤を４か所に上書きコピーしたい
+
+    ## 対角線をプロット
+    #for y in range(0,edge_size):
+    #    for x in range(0,edge_size):
+    #        if y == x:
+    #            board2[y*edge_size+x] = "\\"
 
     # 表示
     print_board(edge_size, board2)
