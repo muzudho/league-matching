@@ -39,10 +39,26 @@ def print_board(edge_size, board):
         lambda: print(""))
 
 
-def overwrite_4_boards(src, src_edge_size, dst, dst_edge_size):
+def overwrite_4_boards(src_board, src_edge_size, dst_board, dst_edge_size):
     """srcテーブルを４つ、dstテーブルへ上書きコピーしたい"""
 
+    def on_cell(x, y, color):
+        # 元のテーブルの x, y を、列、行へ変換、先のテーブルの x, y に変換
+        src_col = x % src_edge_size
+        src_row = x // src_edge_size
+
+        dst_x = src_col
+        dst_y = src_row * dst_edge_size
+
+        dst_board[dst_y + dst_x] = color
+
     # TODO １回目のコピー
+    scan_board(
+        board=src_board,
+        edge_size=src_edge_size,
+        on_cell=on_cell,
+        on_line_end=lambda: print(""))
+
     # TODO ２回目のコピー
     # TODO ３回目のコピー
     # TODO ４回目のコピー
@@ -64,12 +80,6 @@ if __name__ == "__main__":
     # 基準点に 0 を入れる
     board[0] = 0
 
-    ## 対角線をプロット
-    #for y in range(0,edge_size):
-    #    for x in range(0,edge_size):
-    #        if y == x:
-    #            board[y*edge_size+x] = "\\"
-
     # 表示
     print_board(edge_size, board)
 
@@ -77,18 +87,17 @@ if __name__ == "__main__":
     input()
 
     # 辺の長さを指定して、盤を生成
-    edge_size = 2
-    board2 = create_empty_board(edge_size)
+    edge_size2 = 2
+    board2 = create_empty_board(edge_size2)
 
     # １つ前の盤を４か所に上書きコピーしたい
-
-    ## 対角線をプロット
-    #for y in range(0,edge_size):
-    #    for x in range(0,edge_size):
-    #        if y == x:
-    #            board2[y*edge_size+x] = "\\"
+    overwrite_4_boards(
+        src_board=board,
+        src_edge_size=edge_size,
+        dst_board=board2,
+        dst_edge_size=edge_size2)
 
     # 表示
-    print_board(edge_size, board2)
+    print_board(edge_size2, board2)
 
     print("Finished.")
