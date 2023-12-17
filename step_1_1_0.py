@@ -14,11 +14,10 @@ def get_opponent(me, round, player_size):
     player_size : int
         選手全員の数
     """
-
-    if me % 2 == 0:
-        return (me + player_size + round**2 + 1) % player_size
+    if me <= round:
+        return (me + player_size + (round+1)) % player_size
     else:
-        return (me + player_size - round**2 - 1) % player_size
+        return (me + player_size - (round+1)) % player_size
 
 
 if __name__ == "__main__":
