@@ -42,7 +42,7 @@ def print_board(edge_size, board):
 def overwrite_4_boards(src_board, src_edge_size, dst_board, dst_edge_size):
     """srcテーブルを４つ、dstテーブルへ上書きコピーしたい"""
 
-    def on_cell(x, y, color):
+    def on_cell_top_left(x, y, color):
         # 元のテーブルの x, y を、列、行へ変換、先のテーブルの x, y に変換
         src_col = x % src_edge_size
         src_row = x // src_edge_size
@@ -52,14 +52,30 @@ def overwrite_4_boards(src_board, src_edge_size, dst_board, dst_edge_size):
 
         dst_board[dst_y + dst_x] = color
 
-    # TODO １回目のコピー
+    def on_cell_bottom_right(x, y, color):
+        # 元のテーブルの x, y を、列、行へ変換、先のテーブルの x, y に変換
+        src_col = x % src_edge_size
+        src_row = x // src_edge_size
+
+        dst_x = src_col + (edge_size2//2)
+        dst_y = (src_row+ (edge_size2//2)) * dst_edge_size
+
+        dst_board[dst_y + dst_x] = color
+
+    # TODO 左上へコピー
     scan_board(
         board=src_board,
         edge_size=src_edge_size,
-        on_cell=on_cell,
+        on_cell=on_cell_top_left,
         on_line_end=lambda: print(""))
 
-    # TODO ２回目のコピー
+    # TODO 右下へコピー
+    scan_board(
+        board=src_board,
+        edge_size=src_edge_size,
+        on_cell=on_cell_bottom_right,
+        on_line_end=lambda: print(""))
+
     # TODO ３回目のコピー
     # TODO ４回目のコピー
 
