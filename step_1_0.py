@@ -24,8 +24,8 @@ if __name__ == "__main__":
 
     print("hello")
 
-    # ラウンド番目
-    round = 1
+    # 最終ラウンド
+    max_round = 1
 
     # 辺の長さ。正方形とする
     edge_size = 8
@@ -39,10 +39,12 @@ if __name__ == "__main__":
             if y == x:
                 board[y*edge_size+x] = "\\"
 
-    # 第１ラウンド目をプロット
-    for y in range(0,edge_size):
-        x = get_opponent(y, round, edge_size)
-        board[y*edge_size+x] = "*"
+
+    for round in range(1,3):
+        # 第nラウンド目をプロット
+        for y in range(0,edge_size):
+            x = get_opponent(y, round, edge_size)
+            board[y*edge_size+x] = "*"
 
     # 表示
     for y in range(0,edge_size):
